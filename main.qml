@@ -27,10 +27,26 @@ Application {
 
     Camera {
         id: camera
+
+        imageCapture {
+            onImageCaptured: {
+                photoPreview.source = preview  // Show the preview in an Image
+            }
+        }
     }
 
     VideoOutput {
         source: camera
         anchors.fill: parent
+        focus : visible // to receive focus and capture key events when visible
+
+        MouseArea {
+            anchors.fill: parent;
+            onClicked: camera.imageCapture.capture();
+        }
+    }
+
+    Image {
+        id: photoPreview
     }
 }
